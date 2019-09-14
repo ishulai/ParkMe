@@ -26,27 +26,37 @@ module.exports = (appEnv) => {
       let listOfLocations = locationFile.list; 
       let finalList = []; 
       
-      listOfLocations.foreach((item, i) => {
+      listOfLocations.forEach((item, i) => {
         
-        if (findDistance(item.lat, item.long, currentLat, currentLong)) { 
+        if (findDistance(item.lat, item.long, currentLat, currentLong) <= 5) { 
           finalList.push([item.lat, item.long]);
         }
 
       });
 
       function findDistance (myLat, myLong, oLat, oLong) { 
-        return Math.sqrt(Math.pow(myLat - oLat, 2) + Math.pow(myLong - oLong, 2));
+
+        let R = 3961;
+        let dlon = oLong - myLong
+        let dlat = oLat - myLat
+       
+        let a = Math.pow(Math.sin(dlat/2), 2) + Math.cos(myLat) * Math.cos(oLat) * Math.pow(Math.sin(dlon/2),2);
+        let c = 2 * Math.atan2( Math.sqrt(a), Math.sqrt(1-a) )
+        let distance = R * c 
+
+        return distance;
+        //return Math.sqrt(Math.pow(myLat - oLat, 2) + Math.pow(myLong - oLong, 2));
       }
 
       console.log(req);
 
-      if( key === "a123" ){ 
+      if( key === "hackmit123456" ){ 
 
         var date = Date.now();
       
         //list of parking spaces lat long 
-        let collegesNearby = [[42.359516,-71.092697], [42.3770068,-71.1188488], [42.359516,-71.092697]];
-        res.send(collegesNearby);
+       // let collegesNearby = [[42.359516,-71.092697], [42.3770068,-71.1188488], [42.359516,-71.092697]];
+        res.send(finalList);
   
       } else { 
         res.send({error:"done"});
