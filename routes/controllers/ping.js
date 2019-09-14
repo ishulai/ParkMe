@@ -19,7 +19,7 @@ module.exports = (appEnv) => {
 
 
       let currentLat = currentLocation.lat; 
-      let currentLong = currentLocation.long; 
+      let currentLong = currentLocation.lon; 
 
       let locationFile = JSON.parse(rawdata);
 
@@ -28,8 +28,8 @@ module.exports = (appEnv) => {
       
       listOfLocations.forEach((item, i) => {
         
-        if (findDistance(item.lat, item.long, currentLat, currentLong) <= 5) { 
-          finalList.push([item.lat, item.long]);
+        if (findDistance(item.lat, item.lon, currentLat, currentLong) <= 5) { 
+          finalList.push([item.lat, item.lon]);
         }
 
       });
@@ -48,7 +48,7 @@ module.exports = (appEnv) => {
         //return Math.sqrt(Math.pow(myLat - oLat, 2) + Math.pow(myLong - oLong, 2));
       }
 
-      console.log(req);
+      //console.log(req);
 
       if( key === "hackmit123456" ){ 
 
