@@ -31,7 +31,10 @@ module.exports = (app, appEnv) => {
             template: "public/index.html"
         }),
         new LiveReloadPlugin()
-    ]
+    ],
+    node: {
+      fs: 'empty'
+    }
   };
   
   app.use(webpackMiddleware(webpack(config)));
