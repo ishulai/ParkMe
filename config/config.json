@@ -1,0 +1,31 @@
+{
+  "development": true,
+  "hosts": {
+    "web": {
+      "port": 8080
+    },
+    "static": "http://localhost:8080"
+  },
+  "middlewares": {
+    "sass": {
+      "src": "./src/scss",
+      "dest": "./public",
+      "outputStyle": "compressed"
+    }
+  },
+  "logs": {
+    "access": "./access.log"
+  },
+  "aws": {
+    "credentials": {
+      "key": "",
+      "secret": "",
+      "region": "us-west-1"
+    },
+    "s3": {
+      "fileUpload": {
+        "bucket": ""
+      }
+    }
+  }
+}
