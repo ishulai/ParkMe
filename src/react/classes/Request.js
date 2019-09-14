@@ -1,6 +1,6 @@
 const request = require('request');
 
-const host = "localhost/";
+const host = "";
 const key = "hackmit123456";
 
 class Request {
