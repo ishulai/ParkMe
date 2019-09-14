@@ -11,23 +11,26 @@ module.exports = (app, appEnv) => {
     entry: "./src/react/index.jsx",
     mode: mode,
     output: {
-      path: path.join(__dirname, "../", "public"),
-      filename: "bundle.js"
+        path: path.join(__dirname, "../", "public"),
+        filename: "bundle.js"
+    },
+    resolve: {
+        extensions: [".js", ".jsx"]
     },
     module: {
-      rules: [
-        {
-          use: "babel-loader",
-          test: /\.jsx$/,
-          exclude: /node_modules/
-        }
-      ]
+        rules: [
+            {
+                use: "babel-loader",
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/
+            }
+        ]
     },
     plugins: [
-      new HtmlWebpackPlugin({
-        template: "public/index.html"
-      }),
-      new LiveReloadPlugin()
+        new HtmlWebpackPlugin({
+            template: "public/index.html"
+        }),
+        new LiveReloadPlugin()
     ]
   };
   
