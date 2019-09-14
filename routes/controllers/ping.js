@@ -12,10 +12,11 @@ module.exports = (appEnv) => {
       var cv = require("../../util/googlevision");
 
       //send the image via base64 text 
+      const data = req.body; 
 
-      const img = req.query.image;
-      const currentLocation = req.query.location; 
-      const key = req.query.key;
+      const img = data.image;
+      const currentLocation = data.location; 
+      const key = data.key;
 
 
       let currentLat = currentLocation.lat; 
@@ -25,9 +26,12 @@ module.exports = (appEnv) => {
 
       let listOfLocations = locationFile.list; 
       let finalList = []; 
+      console.log(listOfLocations);
       
       listOfLocations.forEach((item, i) => {
-        
+        console.log(item.lat);
+        console.log(item.lon)
+        console.log(findDistance(item.lat, item.lon, currentLat, currentLong));
         if (findDistance(item.lat, item.lon, currentLat, currentLong) <= 5) { 
           finalList.push([item.lat, item.lon]);
         }
@@ -41,8 +45,8 @@ module.exports = (appEnv) => {
         let dlat = oLat - myLat
        
         let a = Math.pow(Math.sin(dlat/2), 2) + Math.cos(myLat) * Math.cos(oLat) * Math.pow(Math.sin(dlon/2),2);
-        let c = 2 * Math.atan2( Math.sqrt(a), Math.sqrt(1-a) )
-        let distance = R * c 
+        let c = 2 * Math.atan2( Math.sqrt(a), Math.sqrt(1-a) );
+        let distance = R * c ;
 
         return distance;
         //return Math.sqrt(Math.pow(myLat - oLat, 2) + Math.pow(myLong - oLong, 2));
