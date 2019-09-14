@@ -4,9 +4,9 @@ const express = require("express");
 
 module.exports = (app, appEnv) => {
   var router = express.Router();
-  const controller = require("./controllers/main")(appEnv);
+  const controller = require("./controllers/ping")(appEnv);
 
-  router.get("/", controller.default);
+  router.post("/ping", controller.default);
 
   return router;
 }
