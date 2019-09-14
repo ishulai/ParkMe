@@ -1,6 +1,6 @@
 const request = require('request');
 
-const host = "localhost";
+const host = "localhost/";
 const key = "hackmit123456";
 
 class Request {
@@ -22,7 +22,7 @@ class Request {
     }
 
     static ping(image, location) {
-        return this._makeRequest("login", { 
+        return this._makeRequest("ping", { 
             image: image,
             location: location,
             key: key
@@ -30,9 +30,11 @@ class Request {
     }
 
     static choosespace(id) {
-        return this._makeRequest("login", {
+        return this._makeRequest("choosespace", {
             id: id,
             key: key
         });
     }
 }
+
+export default Request;
