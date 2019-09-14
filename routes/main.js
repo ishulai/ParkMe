@@ -7,7 +7,7 @@ module.exports = (app, appEnv) => {
   const controller = require("./controllers/ping")(appEnv);
 
   router.get("/", controller.default);
-  router.post("/post", controller.postapi);
+  router.post("/post", controller.pingApi);
 
   return router;
 }

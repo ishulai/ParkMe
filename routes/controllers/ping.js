@@ -21,9 +21,9 @@ module.exports = (appEnv) => {
     
     default: (req, res) => {
 
-      res.sendFile("index.html");
+      //homepage
 
-     
+      res.sendFile("index.html");
 
     }
   }
