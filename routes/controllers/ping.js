@@ -13,6 +13,8 @@ module.exports = (appEnv) => {
 
       //send the image via base64 text 
 
+      console.log(req);
+
       const img = req.query.image;
       const currentLocation = req.query.location; 
       const key = req.query.key;

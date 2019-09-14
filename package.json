@@ -19,6 +19,7 @@
   "homepage": "https://github.com/ishulai/SparkViz-Web#readme",
   "dependencies": {
     "aws-sdk": "^2.222.1",
+    "body-parser": "^1.19.0",
     "browserify-middleware": "^8.1.0",
     "chokidar": "^2.0.3",
     "colors": "^1.2.1",
