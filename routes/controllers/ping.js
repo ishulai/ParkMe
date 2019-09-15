@@ -33,7 +33,10 @@ module.exports = (appEnv) => {
         console.log(item.lon)
         console.log(findDistance(item.lat, item.lon, currentLat, currentLong));
         if (findDistance(item.lat, item.lon, currentLat, currentLong) <= 5) { 
-          finalList.push([item.lat, item.lon]);
+          finalList.push({
+            lat: item.lat,
+            lon: item.lon
+          });
         }
 
       });
@@ -63,7 +66,7 @@ module.exports = (appEnv) => {
       
         //list of parking spaces lat long 
        // let collegesNearby = [[42.359516,-71.092697], [42.3770068,-71.1188488], [42.359516,-71.092697]];
-        res.send(finalList);
+        res.send({locations: finalList});
   
       } else { 
         res.send({error:"done"});
