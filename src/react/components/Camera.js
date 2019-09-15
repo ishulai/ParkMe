@@ -36,7 +36,7 @@ class Camera extends React.Component{
     };
     
         return (
-          <div>
+          <div style={{display: "none"}}>
             <Webcam
               audio={false}
               height={0}
@@ -45,9 +45,8 @@ class Camera extends React.Component{
               width={0}
               videoConstraints={videoConstraints}
             />
-            <div></div>
             <div>
-                { /*this.state.screenshot ? <img src = {this.state.screenshot}/> : */""}
+                { /*this.state.screenshot ? <img src = {this.state.screenshot}/> : ""*/null}
             </div>
           </div>
         );

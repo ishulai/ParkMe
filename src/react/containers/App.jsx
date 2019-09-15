@@ -10,11 +10,13 @@ class App extends Component {
         super(props);
         this.state = {
             locations: [],
-            screenshot: null
+            screenshot: null,
+            selected: null
         }
         this.timer = null;
         this.displayScreenshot = this.displayScreenshot.bind(this);
         this.ping = this.ping.bind(this);
+        this.map = null;
     }
 
     getLocation() {
@@ -47,6 +49,12 @@ class App extends Component {
         clearInterval(this.timer);
     }
 
+    selectLocation(selected) {
+        this.setState({
+            selected: selected
+        });
+    }
+
     render() {
         return !this.props.isGeolocationAvailable ? (
             <div>Your browser does not support Geolocation</div>
@@ -55,8 +63,8 @@ class App extends Component {
         ) : this.props.coords ? (
             <div className="App">
                 <Camera displayScreenshot={this.displayScreenshot}/>
-                <MapContainer locations={ this.state.locations } location={ this.getLocation() }></MapContainer>
-                <Locations locations={ this.state.locations }></Locations>
+                <MapContainer ref={map => this.map = map} locations={ this.state.locations } location={ this.getLocation() } selected={this.state.selected}></MapContainer>
+                <Locations locations={ this.state.locations } selectLocation={loc => this.selectLocation(loc)}></Locations>
             </div>
         ) : (
             <div>Getting the location data&hellip; </div>

@@ -1,27 +1,32 @@
 import React from "react";
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+//import Marker from "./Marker";
 
 const keys = require("../../../apikeys.json");
 
 export class MapContainer extends React.Component {
     constructor(props) {
         super(props);
+        this.map = null;
     }
 
     componentDidUpdate() {
-        this.render();
     }
 
     render() {
+        const center = {
+            lat: this.props.selected ? this.props.selected.lat : this.props.location.lat,
+            lng: this.props.selected ? this.props.selected.lon : this.props.location.lon
+        }
+
         return (
-            <Map google={this.props.google} initialCenter={{ lat: this.props.location.lat, lng: this.props.location.lon }} zoom={15}>
+            <Map onClick={this.onMapClick} google={this.props.google} center={center} zoom={15}>
                 {
                     this.props.locations.map((loc, i) => {
                         return (
                             <Marker
-                            title={'The marker`s title will appear as a tooltip.'}
-                            name={'SOMA'}
-                            position={{ lat: loc.lat, lng: loc.lng }} key={ i } />
+                            name={loc.name}
+                            position={{lat:loc.lat,lng:loc.lon}} key={ i } />
                         );
                     })
                 }

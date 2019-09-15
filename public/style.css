@@ -1,3 +1,7 @@
+* {
+    user-select: none;
+}
+
 html, body {
     margin: 0;
     padding: 0;
@@ -19,6 +23,7 @@ html, body {
 .locations .item {
     border-bottom: 1px solid #ddd;
     padding: 10px;
+    cursor: pointer;
 }
 
 .locations .item:last-child {
@@ -36,4 +41,21 @@ html, body {
 .locations .item .distance {
     font-size: 12px;
     color: #aaa;
+}
+
+.marker {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 18px;
+    height: 18px;
+    background-color: #000;
+    border: 2px solid #fff;
+    border-radius: 100%;
+    user-select: none;
+    transform: translate(-50%, -50%);
+}
+
+.marker:hover {
+    z-index: 1;
 }
