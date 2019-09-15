@@ -2,7 +2,7 @@ module.exports = (appEnv) => {
   return {
     pingApi: (req, res) => { 
 
-
+      const data = req.body; 
       const key = data.key;
       if(key === "hackmit123456" ){ 
 
@@ -19,7 +19,7 @@ module.exports = (appEnv) => {
         var cv = require("../../util/googlevision");
   
         //send the image via base64 text 
-        const data = req.body; 
+
   
         const img = data.image;
         const currentLocation = data.location; 
