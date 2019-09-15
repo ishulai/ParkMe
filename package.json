@@ -34,11 +34,8 @@
     "nodemon": "^1.17.3",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-<<<<<<< HEAD
     "react-webcam": "^3.0.1",
-=======
     "react-geolocated": "^3.0.1",
->>>>>>> fa564a493d59a0b5a4f52c42422b4328565c9931
     "request": "^2.88.0",
     "sass": "^1.1.1",
     "tls": "0.0.1",

@@ -8,10 +8,8 @@ export class MapContainer extends React.Component {
         super(props);
     }
 
-    setPoints(points) {
-        // points looks like this:
-        // [{lat: 123.456, lon: 123.456}, {}, ...]
-        // show nearby parking spots on map
+    componentDidUpdate() {
+        this.render();
     }
 
     render() {
@@ -23,7 +21,7 @@ export class MapContainer extends React.Component {
                             <Marker
                             title={'The marker`s title will appear as a tooltip.'}
                             name={'SOMA'}
-                            position={{lat: loc.lat, lng: loc.lng}} key={ i } />
+                            position={{ lat: loc.lat, lng: loc.lng }} key={ i } />
                         );
                     })
                 }
