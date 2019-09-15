@@ -48,33 +48,22 @@ module.exports = (appEnv) => {
           return x * Math.PI / 180;
         }
       
-      listOfLocations.forEach((item, i) => {
-        let distance = findDistance(item.lat, item.lon, currentLat, currentLong)
-        if (distance <= 5) { 
-          finalList.push({
-            lat: item.lat,
-            lon: item.lon,
-            distance: distance, 
-            id: item.id
-          });
-        }
+        listOfLocations.forEach((item, i) => {
+          let distance = findDistance(item.lat, item.lon, currentLat, currentLong)
+          if (distance <= 5) { 
+            finalList.push({
+              lat: item.lat,
+              lon: item.lon,
+              distance: distance, 
+              id: item.id
+            });
+          }
+        });
   
 
 
 
-      
-        res.send(finalList);
-        var jsonContent = JSON.stringify(jsonObj);
-        console.log(jsonContent);
-        
-        fs.writeFile("output.json", jsonContent, 'utf8', function (err) {
-            if (err) {
-                console.log("An error occured while writing JSON Object to File.");
-                return console.log(err);
-            }
-        
-            console.log("JSON file has been saved.");
-        });
+
       } else { 
         res.send({error:"done"});
       }
