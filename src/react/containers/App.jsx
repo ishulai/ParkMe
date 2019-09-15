@@ -7,7 +7,8 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            locations: []
+            locations: [],
+            screenshot: null
         }
         this.timer = null;
         this.camera = new Camera();
@@ -32,7 +33,8 @@ class App extends Component {
     render() {
         return (
             <div className="App">        
-                <Map locations={ this.state.locations }></Map>
+                {/* <Map locations={ this.state.locations }></Map> */}
+                <Camera />
             </div>
         );
     }

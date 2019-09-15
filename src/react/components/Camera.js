@@ -1,9 +1,65 @@
-class Camera {
-    constructor() {
+import React, { Component } from 'react';
+import Webcam from 'react-webcam';
 
+class Camera extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = { screenshot: null };
+        this.setRef = this.setRef.bind(this);
+        this.getPicture = this.getPicture.bind(this);
+        this.INTERVAL = 1500;
     }
+
+    setRef(webcam) {
+        this.webcam = webcam;
+    };
 
     getPicture() {
-        // return base64 encoding of current pic
+        const screenshot = this.webcam.getScreenshot();
+        this.setState({screenshot: screenshot});
+        return screenshot
     }
+
+    displayScreenshot() {
+        this.setState(prevState => ({
+          screenshot: this.getPicture()
+        }));
+    }
+
+    componentDidMount() {
+        this.interval = setInterval(() => this.displayScreenshot(), this.INTERVAL);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+    
+    render() {
+        const videoConstraints = {
+        width: 1280,
+        height: 1200,
+        facingMode: "user"
+    };
+    
+        return (
+          <div>
+            <Webcam
+              audio={false}
+              height={350}
+              ref={this.setRef}
+              screenshotFormat="image/jpeg"
+              width={350}
+              videoConstraints={videoConstraints}
+            />
+            <div></div>
+            <div>
+                { this.state.screenshot ? <img src = {this.state.screenshot}/> : ""}
+            </div>
+          </div>
+        );
+      }
+    
+
 }
+
+export default Camera;
