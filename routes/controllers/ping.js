@@ -3,7 +3,7 @@ module.exports = (appEnv) => {
     pingApi: (req, res) => { 
 
 
-
+      const key = data.key;
       if(key === "hackmit123456" ){ 
 
         var date = Date.now();
@@ -23,7 +23,7 @@ module.exports = (appEnv) => {
   
         const img = data.image;
         const currentLocation = data.location; 
-        const key = data.key;
+        
   
   
         let currentLat = currentLocation.lat; 
