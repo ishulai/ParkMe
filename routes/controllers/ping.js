@@ -33,17 +33,7 @@ module.exports = (appEnv) => {
   
         let listOfLocations = locationFile.list; 
         let finalList = []; 
-        console.log(listOfLocations);
         
-        listOfLocations.forEach((item, i) => {
-          console.log(item.lat);
-          console.log(item.lon)
-          console.log(findDistance(item.lat, item.lon, currentLat, currentLong));
-          if (findDistance(item.lat, item.lon, currentLat, currentLong) <= 5) { 
-            finalList.push([item.lat, item.lon]);
-          }
-        });
-  
         function toRad(x) {
           return x * Math.PI / 180;
         }
@@ -60,7 +50,21 @@ module.exports = (appEnv) => {
           }
         });
   
+        
+        function findDistance (myLat, myLong, oLat, oLong) { 
 
+          let R = 3961;
+          let dlon = toRad(oLong - myLong)
+          let dlat = toRad(oLat - myLat)
+        
+          let a = Math.pow(Math.sin(dlat/2), 2) + Math.cos(toRad(myLat)) * Math.cos(toRad(oLat)) * Math.pow(Math.sin(dlon/2),2);
+          let c = 2 * Math.atan2( Math.sqrt(a), Math.sqrt(1-a) );
+          let distance = R * c;
+
+          return distance;
+        }
+
+        res.send(finalList);
 
 
 
