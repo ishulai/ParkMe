@@ -87,4 +87,15 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
+./vscode
+
 apikeys.json
+
+# computer vision images
+/computer-vision/*.jpg
+/computer-vision/*.png
+/computer-vision/*.pyc
+/computer-vision/*.mp4
+/computer-vision/*.MOV
+/computer-vision/*.avi
+
