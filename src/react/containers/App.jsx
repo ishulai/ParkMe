@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Camera from "../components/Camera";
 import Request from "../classes/Request";
 import MapContainer from "../components/MapContainer";
+import Locations from "../components/Locations";
 import { geolocated } from "react-geolocated";
 
 class App extends Component {
@@ -45,6 +46,7 @@ class App extends Component {
         ) : this.props.coords ? (
             <div className="App">
                 <MapContainer locations={ this.state.locations }></MapContainer>
+                <Locations locations={ this.state.locations }></Locations>
             </div>
         ) : (
             <div>Getting the location data&hellip; </div>

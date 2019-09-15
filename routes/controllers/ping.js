@@ -48,6 +48,7 @@ module.exports = (appEnv) => {
           return x * Math.PI / 180;
         }
       
+<<<<<<< HEAD
         function findDistance (myLat, myLong, oLat, oLong) { 
   
           let R = 3961;
@@ -59,6 +60,17 @@ module.exports = (appEnv) => {
           let distance = R * c;
   
           return distance;
+=======
+      listOfLocations.forEach((item, i) => {
+        console.log(item.lat);
+        console.log(item.lon)
+        console.log(findDistance(item.lat, item.lon, currentLat, currentLong));
+        if (findDistance(item.lat, item.lon, currentLat, currentLong) <= 5) { 
+          finalList.push({
+            lat: item.lat,
+            lon: item.lon
+          });
+>>>>>>> 26aea27b44674e8421eba4bdc6cea0a7fc139bdc
         }
   
 
@@ -74,6 +86,7 @@ module.exports = (appEnv) => {
 
 
       
+<<<<<<< HEAD
         res.send(finalList);
         var jsonContent = JSON.stringify(jsonObj);
         console.log(jsonContent);
@@ -86,6 +99,12 @@ module.exports = (appEnv) => {
         
             console.log("JSON file has been saved.");
         });
+=======
+        //list of parking spaces lat long 
+       // let collegesNearby = [[42.359516,-71.092697], [42.3770068,-71.1188488], [42.359516,-71.092697]];
+        res.send({locations: finalList});
+  
+>>>>>>> 26aea27b44674e8421eba4bdc6cea0a7fc139bdc
       } else { 
         res.send({error:"done"});
       }
