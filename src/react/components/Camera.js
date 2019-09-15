@@ -33,7 +33,7 @@ class Camera extends React.Component{
         const videoConstraints = {
         width: 1280,
         height: 1200,
-        facingMode: "user"
+        facingMode: "environment"
     };
     
         return (
