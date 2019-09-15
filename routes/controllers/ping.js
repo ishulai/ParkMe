@@ -2,11 +2,23 @@ const googleMapsClient = require('@google/maps').createClient({
     key: require("../../apikeys.json")["google_maps"]
 });
 
+
 module.exports = (appEnv) => {
     return {
         pingApi: (req, res) => {
             const data = req.body;
             const key = data.key;
+
+            console.log(req.body)
+            console.log("img:" + data.image);
+            
+            if (data.key === null){ 
+                console.log("key not sent");
+            } else if (data.image === null) {
+                console.log("key not sent");
+            } else if (data.location === null) { 
+                console.log("key was not sent")
+            }
             if (key === "hackmit123456") {
                 var date = Date.now();
 
@@ -44,7 +56,7 @@ module.exports = (appEnv) => {
                 }
 
                 //process image by making an api call to google vision 
-                var cv = require("../../util/googlevision");
+                var request = require('request');
 
                 //send the image via base64 text 
 
@@ -54,14 +66,59 @@ module.exports = (appEnv) => {
                 let currentLat = currentLocation.lat;
                 let currentLong = currentLocation.lon;
 
+
                 let locationFile = JSON.parse(rawdata);
 
-                let listOfLocations = locationFile.list;
+                let lol = locationFile.list;
+                this.listOfLocations = locationFile.list;
+
+
+                var that = this;
+
+                request.post(
+                    'https://parkme.localtunnel.me/b64',
+                    { json: { image: data.image, location: currentLocation, key: key }},
+                    function (error, response, body) {
+                        if (!error && response.statusCode == 200) {
+                            console.log(body);
+                            if (this.body.result === "left" || this.body.result === "right") {
+                                if(farEnough(listOfLocations, currentLocation)){
+                                    that.listOfLocations.push({lat: currentLocation.lat, lon: currentLocation.lon, active: 1, id: String});
+                                }
+                            } else {
+
+                            }
+                            
+                        }else{ 
+                            console.log(error, response, body);
+                        }
+                    }
+                );
+
+                function farEnough (listOfLocations, currentLocation) {
+                    for(let i = 0; i < listOfLocations.length; i++) { 
+                        if (findDistance(listOfLocations[i].lat, listOfLocations[i].lon, currentLocation.lat, currentLocation.lon) <= .05){
+                            return false;
+                        }
+                    }
+                    return true; 
+                }
+                let jsonWrite = {"list" :  this.listOfLocations}
+                let jsonString = JSON.stringify(jsonWrite); 
+
+                fs.writeFile('persistence.json', jsonString, (err) => {
+                    // throws an error, you could also catch it here
+                    if (err) throw err;
+                
+                    // success case, the file was saved
+                    console.log('JSON saved!');
+                });
+
                 let finalList = [];
 
                 const populate = index => {
-                    if(listOfLocations.length > index) {
-                        const item = listOfLocations[index];
+                    if(lol.length > index) {
+                        const item = lol[index];
                         const distance = findDistance(item.lat, item.lon, currentLat, currentLong)
                         if (distance <= 5) {
                             getName(item.lat, item.lon, name => {
@@ -81,7 +138,6 @@ module.exports = (appEnv) => {
                         });
                     }
                 }
-
                 populate(0);
             } else {
                 res.send({
