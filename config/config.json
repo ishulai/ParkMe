@@ -6,13 +6,6 @@
     },
     "static": "http://localhost:8080"
   },
-  "middlewares": {
-    "sass": {
-      "src": "./src/scss",
-      "dest": "./public",
-      "outputStyle": "compressed"
-    }
-  },
   "logs": {
     "access": "./access.log"
   },

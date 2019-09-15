@@ -1,11 +1,18 @@
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 
 // Config file path
 const config = require("./config/config.json");
 
 // Static resource path
 app.use(express.static(__dirname + '/public'));
+
+// JSON body parser
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 
 // Helper modules
 require("./middlewares/_index")(app, config);
