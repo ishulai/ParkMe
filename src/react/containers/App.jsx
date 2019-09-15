@@ -27,6 +27,7 @@ class App extends Component {
             const img = this.camera.getPicture();
             const loc = this.getLocation();
             Request.ping(img, loc).then(res => {
+                console.log(res);
                 this.setState({
                     locations: res.locations
                 });

@@ -6,12 +6,16 @@ class Locations extends React.Component {
     }
 
     render() {
+        console.log(this.props);
         return this.props.locations ? (
             <div className="locations">
                 {
                     this.props.locations.map((loc, i) => {
                         return (
-                            <div className="item" key={ i }>{loc.lon + " " + loc.lat}</div>
+                            <div className="item" key={ i }>
+                                <div className="name">MIT</div>
+                                <div className="distance">{ Math.round(loc.distance * 10) / 10 } miles</div>
+                            </div>
                         );
                     })
                 }
