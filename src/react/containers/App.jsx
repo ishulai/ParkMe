@@ -9,7 +9,8 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            locations: []
+            locations: [],
+            screenshot: null
         }
         this.timer = null;
         this.camera = new Camera();
@@ -39,6 +40,12 @@ class App extends Component {
     }
 
     render() {
+<<<<<<< HEAD
+        return (
+            <div className="App">        
+                {/* <Map locations={ this.state.locations }></Map> */}
+                <Camera />
+=======
         return !this.props.isGeolocationAvailable ? (
             <div>Your browser does not support Geolocation</div>
         ) : !this.props.isGeolocationEnabled ? (
@@ -47,6 +54,7 @@ class App extends Component {
             <div className="App">
                 <MapContainer locations={ this.state.locations } location={ this.getLocation() }></MapContainer>
                 <Locations locations={ this.state.locations }></Locations>
+>>>>>>> fa564a493d59a0b5a4f52c42422b4328565c9931
             </div>
         ) : (
             <div>Getting the location data&hellip; </div>
