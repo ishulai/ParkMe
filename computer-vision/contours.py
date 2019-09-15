@@ -145,12 +145,16 @@ class ContourFinder:
 
     # Where all the methods are run
     def runLive(self, debug=0, keepWindow=False):
-        cap = cv.VideoCapture(0)
+        if debug == 2:
+            cap = cv.VideoCapture(0)
+        else:
+            cap = None
         success = 1
         count = 0
         vidObj = cv.VideoCapture("sped.mp4")
         while success: 
-            ret, frame = cap.read()
+            if cap:
+                ret, frame = cap.read()
             
             if debug == 2:
                 if (vidObj.isOpened()== False): 
@@ -197,12 +201,14 @@ class ContourFinder:
                     break
                 if debug != 2 and not keepWindow:
                     success = 0
-                    cap.release()
+                    if cap:
+                        cap.release()
                     cv.destroyAllWindows()
                     res = self.makeRes(lines)
                     print(res)
                     return res
-        cap.release()
+        if cap:
+            cap.release()
         cv.destroyAllWindows() 
 
 if __name__ == "__main__":
