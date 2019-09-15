@@ -53,6 +53,7 @@ class App extends Component {
         this.setState({
             selected: selected
         });
+        Request.choosespace(selected.id);
     }
 
     render() {
