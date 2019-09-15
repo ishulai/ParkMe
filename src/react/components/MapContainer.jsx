@@ -16,7 +16,18 @@ export class MapContainer extends React.Component {
 
     render() {
         return (
-            <Map google={this.props.google} initialCenter={{ lat: 40.854885, lng: -88.081807 }} zoom={15} />
+            <Map google={this.props.google} initialCenter={{ lat: this.props.location.lat, lng: this.props.location.lon }} zoom={15}>
+                {
+                    this.props.locations.map((loc, i) => {
+                        return (
+                            <Marker
+                            title={'The marker`s title will appear as a tooltip.'}
+                            name={'SOMA'}
+                            position={{lat: loc.lat, lng: loc.lng}} key={ i } />
+                        );
+                    })
+                }
+            </Map>
         );
     }
 }

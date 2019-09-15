@@ -27,7 +27,6 @@ class App extends Component {
             const img = this.camera.getPicture();
             const loc = this.getLocation();
             Request.ping(img, loc).then(res => {
-                console.log(res);
                 this.setState({
                     locations: res.locations
                 });
@@ -46,7 +45,7 @@ class App extends Component {
             <div>Geolocation is not enabled</div>
         ) : this.props.coords ? (
             <div className="App">
-                <MapContainer locations={ this.state.locations }></MapContainer>
+                <MapContainer locations={ this.state.locations } location={ this.getLocation() }></MapContainer>
                 <Locations locations={ this.state.locations }></Locations>
             </div>
         ) : (

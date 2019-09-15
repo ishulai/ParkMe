@@ -1,63 +1,71 @@
-import React, { Component } from 'react';
-import Camera from "../components/Camera";
-import Request from "../classes/Request";
-import MapContainer from "../components/MapContainer";
-import Locations from "../components/Locations";
-import { geolocated } from "react-geolocated";
+module.exports = (appEnv) => {
+  return {
+    pingApi: (req, res) => {
+      const data = req.body;
+      const key = data.key;
+      if (key === "hackmit123456") {
+        var date = Date.now();
 
-class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            locations: [],
-            screenshot: null
+        const fs = require('fs');
+
+        let rawdata = fs.readFileSync('persistence.json');
+
+        //process image by making an api call to google vision 
+        var cv = require("../../util/googlevision");
+
+        //send the image via base64 text 
+
+        const img = data.image;
+        const currentLocation = data.location;
+
+        let currentLat = currentLocation.lat;
+        let currentLong = currentLocation.lon;
+
+        let locationFile = JSON.parse(rawdata);
+
+        let listOfLocations = locationFile.list;
+        let finalList = [];
+
+        function toRad(x) {
+          return x * Math.PI / 180;
         }
-        this.timer = null;
-        this.camera = new Camera();
-    }
 
-    getLocation() {
-        return {
-            lat: this.props.coords.latitude,
-            lon: this.props.coords.longitude
-        }
-    }
-
-    componentDidMount() {
-        this.timer = setInterval(() => {
-            const img = this.camera.getPicture();
-            const loc = this.getLocation();
-            Request.ping(img, loc).then(res => {
-                this.setState({
-                    locations: res.locations
-                });
+        listOfLocations.forEach((item, i) => {
+          let distance = findDistance(item.lat, item.lon, currentLat, currentLong)
+          if (distance <= 5) {
+            finalList.push({
+              lat: item.lat,
+              lon: item.lon,
+              distance: distance,
+              id: item.id
             });
-        }, 2000);
-    }
+          }
+        });
 
-    componentWillUnmount() {
-        clearInterval(this.timer);
-    }
+        function findDistance(myLat, myLong, oLat, oLong) {
+          let R = 3961;
+          let dlon = toRad(oLong - myLong)
+          let dlat = toRad(oLat - myLat)
 
-    render() {
-        return !this.props.isGeolocationAvailable ? (
-            <div>Your browser does not support Geolocation</div>
-        ) : !this.props.isGeolocationEnabled ? (
-            <div>Geolocation is not enabled</div>
-        ) : this.props.coords ? (
-            <div className="App">
-                <MapContainer locations={ this.state.locations }></MapContainer>
-                <Locations locations={ this.state.locations }></Locations>
-            </div>
-        ) : (
-            <div>Getting the location data&hellip; </div>
-        );
-    }
-}
+          let a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(toRad(myLat)) * Math.cos(toRad(oLat)) * Math.pow(Math.sin(dlon / 2), 2);
+          let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+          let distance = R * c;
 
-export default geolocated({
-    positionOptions: {
-        enableHighAccuracy: false,
+          return distance;
+        }
+
+        res.send({
+          locations: finalList
+        });
+      } else {
+        res.send({
+          error: "done"
+        });
+      }
     },
-    userDecisionTimeout: 5000,
-})(App);
+    default: (req, res) => {
+      //homepage
+      res.sendFile("index.html");
+    }
+  }
+}
