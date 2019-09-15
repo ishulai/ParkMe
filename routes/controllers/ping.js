@@ -26,12 +26,8 @@ module.exports = (appEnv) => {
 
       let listOfLocations = locationFile.list; 
       let finalList = []; 
-      console.log(listOfLocations);
       
       listOfLocations.forEach((item, i) => {
-        console.log(item.lat);
-        console.log(item.lon)
-        console.log(findDistance(item.lat, item.lon, currentLat, currentLong));
         if (findDistance(item.lat, item.lon, currentLat, currentLong) <= 5) { 
           finalList.push({
             lat: item.lat,
