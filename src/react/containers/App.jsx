@@ -13,7 +13,8 @@ class App extends Component {
             screenshot: null
         }
         this.timer = null;
-        this.camera = new Camera();
+        this.displayScreenshot = this.displayScreenshot.bind(this);
+        this.ping = this.ping.bind(this);
     }
 
     getLocation() {
@@ -23,16 +24,23 @@ class App extends Component {
         }
     }
 
-    componentDidMount() {
-        this.timer = setInterval(() => {
-            const img = this.camera.getPicture();
-            const loc = this.getLocation();
-            Request.ping(img, loc).then(res => {
-                this.setState({
-                    locations: res.locations
-                });
+    ping() {
+        const img = this.state.screenshot;
+        const loc = this.getLocation();
+        Request.ping(img, loc).then(res => {
+            this.setState({
+                locations: res.locations
             });
-        }, 2000);
+        });
+    }
+
+    displayScreenshot(getPicture, webcam) {
+        this.setState(prevState => ({
+          screenshot: getPicture(webcam)
+        }), 
+        () => {
+            this.ping();
+        });
     }
 
     componentWillUnmount() {
@@ -46,6 +54,7 @@ class App extends Component {
             <div>Geolocation is not enabled</div>
         ) : this.props.coords ? (
             <div className="App">
+                <Camera displayScreenshot={this.displayScreenshot}/>
                 <MapContainer locations={ this.state.locations } location={ this.getLocation() }></MapContainer>
                 <Locations locations={ this.state.locations }></Locations>
             </div>

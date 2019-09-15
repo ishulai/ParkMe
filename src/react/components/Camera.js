@@ -14,20 +14,14 @@ class Camera extends React.Component{
         this.webcam = webcam;
     };
 
-    getPicture() {
-        const screenshot = this.webcam.getScreenshot();
+    getPicture(webcam) {
+        const screenshot = webcam.getScreenshot();
         this.setState({screenshot: screenshot});
         return screenshot
     }
 
-    displayScreenshot() {
-        this.setState(prevState => ({
-          screenshot: this.getPicture()
-        }));
-    }
-
     componentDidMount() {
-        this.interval = setInterval(() => this.displayScreenshot(), this.INTERVAL);
+        this.interval = setInterval(() => this.props.displayScreenshot(this.getPicture, this.webcam), this.INTERVAL);
     }
 
     componentWillUnmount() {
