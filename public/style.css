@@ -32,3 +32,8 @@ html, body {
 .locations .item:active {
     background: #ddd;
 }
+
+.locations .item .distance {
+    font-size: 12px;
+    color: #aaa;
+}

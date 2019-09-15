@@ -39,15 +39,15 @@ class Camera extends React.Component{
           <div>
             <Webcam
               audio={false}
-              height={350}
+              height={0}
               ref={this.setRef}
               screenshotFormat="image/jpeg"
-              width={350}
+              width={0}
               videoConstraints={videoConstraints}
             />
             <div></div>
             <div>
-                { this.state.screenshot ? <img src = {this.state.screenshot}/> : ""}
+                { /*this.state.screenshot ? <img src = {this.state.screenshot}/> : */""}
             </div>
           </div>
         );
