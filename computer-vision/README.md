@@ -1,4 +1,4 @@
-#
+# Computer Vision (OpenCV) - Matthew Tang
 
 ## Files
 * contours - Main file. Uses opencv to find open curbs (parking spots).
@@ -15,7 +15,7 @@
 	* 1-6.jpg - Still photos
 	* frame#.jpg - Frames from sped.mp4
 	
-
-## Hosting
+## Server Deployment
 
 `lt --port 5000 --subdomain parkme`
+Domain: https://parkme.localtunnel.me
