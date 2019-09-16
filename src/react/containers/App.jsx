@@ -28,6 +28,7 @@ class App extends Component {
 
     ping() {
         const img = this.state.screenshot;
+        console.log("Sent image");
         const loc = this.getLocation();
         Request.ping(img, loc).then(res => {
             this.setState({
@@ -38,7 +39,7 @@ class App extends Component {
 
     displayScreenshot(getPicture, webcam) {
         this.setState(prevState => ({
-          screenshot: getPicture(webcam)
+            screenshot: getPicture(webcam)
         }), 
         () => {
             this.ping();
@@ -66,7 +67,7 @@ class App extends Component {
                 <Camera displayScreenshot={this.displayScreenshot}/>
                 <MapContainer ref={map => this.map = map} locations={ this.state.locations } location={ this.getLocation() } selected={this.state.selected}></MapContainer>
                 <Locations locations={ this.state.locations } selectLocation={loc => this.selectLocation(loc)}></Locations>
-            </div>
+                </div>
         ) : (
             <div>Getting the location data&hellip; </div>
         );

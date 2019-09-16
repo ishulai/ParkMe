@@ -16,6 +16,7 @@ class Camera extends React.Component{
 
     getPicture(webcam) {
         const screenshot = webcam.getScreenshot();
+        console.log()
         this.setState({screenshot: screenshot});
         return screenshot
     }
@@ -32,21 +33,21 @@ class Camera extends React.Component{
         const videoConstraints = {
         width: 1280,
         height: 1200,
-        facingMode: "user"
+        facingMode: "environment"
     };
     
         return (
-          <div style={{display: "none"}}>
-            <Webcam
+          <div style={{position: "absolute", top: "-1000px"}}>
+            <Webcam 
               audio={false}
-              height={0}
+              height={350}
               ref={this.setRef}
               screenshotFormat="image/jpeg"
-              width={0}
+              width={350}
               videoConstraints={videoConstraints}
             />
             <div>
-                { /*this.state.screenshot ? <img src = {this.state.screenshot}/> : ""*/null}
+                { this.state.screenshot ? <img src = {this.state.screenshot}/> : ""}
             </div>
           </div>
         );
