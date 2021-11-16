@@ -19,7 +19,7 @@
   "homepage": "https://github.com/ishulai/SparkViz-Web#readme",
   "dependencies": {
     "@google/maps": "^1.0.0",
-    "aws-sdk": "^2.222.1",
+    "aws-sdk": "^2.814.0",
     "body-parser": "^1.19.0",
     "browserify-middleware": "^8.1.0",
     "chokidar": "^2.0.3",
